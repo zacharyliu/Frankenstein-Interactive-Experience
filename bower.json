@@ -1,0 +1,22 @@
+{
+  "name": "Frankenstein-Interactive-Experience",
+  "version": "0.0.1",
+  "homepage": "https://github.com/zacharyliu/Frankenstein-Interactive-Experience",
+  "authors": [
+    "Zachary Liu <liu.zachary@gmail.com>"
+  ],
+  "main": "app.js",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.0"
+  }
+}
