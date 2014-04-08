@@ -12,7 +12,7 @@ var path = require('path');
 var async = require('async');
 
 var mongoose = require('mongoose');
-mongoose.connect(process.env.MONGODB || 'mongodb://localhost/frankenstein');
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/frankenstein');
 var passport = require('passport');
 var ReplyModel = require('./replyModel');
 var UserModel = require('./userModel');
