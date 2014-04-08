@@ -32,4 +32,4 @@ node_modules
 /public/lib
 
 # Config files
-/config.js
+/config.json
