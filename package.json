@@ -12,6 +12,9 @@
     "socket.io": "~0.9.16",
     "voice.js": "git+https://github.com/zacharyliu/voice.js.git",
     "sentiment": "~0.2.3",
-    "mongoose": "~3.8.8"
+    "mongoose": "~3.8.8",
+    "passport": "~0.2.0",
+    "passport-google": "~0.3.0",
+    "csv": "~0.3.7"
   }
 }
