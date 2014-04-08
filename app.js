@@ -9,6 +9,7 @@ var routes = require('./routes');
 var auth = require('./routes/auth');
 var http = require('http');
 var path = require('path');
+var async = require('async');
 
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/frankenstein');
@@ -48,36 +49,91 @@ app.get('/auth/callback', auth.loginCallback);
 
 app.get('/auth/logout', auth.logout);
 
-http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+http.createServer(app).listen(app.get('port'), function () {
+    console.log('Express server listening on port ' + app.get('port'));
 });
 var sentiment = require('sentiment');
 
-SmsService.on('message', function(message) {
+SmsService.on('message', function (message) {
     var number = message.phone_number;
     var text = message.message_text;
     console.log('Incoming message from ', number, text);
-    sentiment(text, function(err, result) {
-        var score = result.score;
-        UserModel.findOne({number: number}, function(err, user) {
-            ReplyModel.findOne(user.current, function(err, currentReply) {
-                currentReply.getBranchByScore(score, function(err, branchReply) {
-                    SmsService.sms(number, branchReply.text, function(err) {
-                        user.current = {
-                            route_id: branchReply.route_id,
-                            tag: branchReply.tag
-                        };
-                        user.save(function(err) {
+    UserModel.findOne({number: number}, function (err, user) {
+        if (err) {
+            // No user found, try to activate a new user
+            UserModel.findOne({activationKey: text}, function (err, user) {
+                if (!err) {
+                    // Successful, activate
+                    user.number = number;
+                    user.save(function (err) {
+                        SmsService.sms(number, 'Successfully activated you as user ' + user.email + '. Text again to begin.');
+                    });
+                } else {
+                    // Unsuccessful, send error
+                    SmsService.sms(number, 'Could not find that activation key, try again.');
+                }
+            })
+        } else {
+            // User exists, figure out what to do based on the incoming text and the user state
+            if (user.current) {
+                // Case 1: the user is currently on a route, and use the text to respond
+                sentiment(text, function (err, result) {
+                    var score = result.score;
+                    ReplyModel.findOne(user.current, function (err, currentReply) {
+                        currentReply.getBranchByScore(score, function (err, branchReply) {
+                            collectReplyMessages(branchReply, function (err, finalReply, messages) {
+                                // Send out SMS messages in order
+                                async.mapSeries(messages, function (message, callback) {
+                                    SmsService.sms(number, message, callback);
+                                }, function (err, results) {
+                                });
+
+                                // Update user state
+                                if (finalReply.positive_always_branch == '') {
+                                    console.log('User completed route with id', finalReply.route_id);
+                                    user.current = null;
+                                    user.completedRoutes.push(finalReply.route_id);
+                                } else {
+                                    user.current = {
+                                        route_id: finalReply.route_id,
+                                        tag: finalReply.tag
+                                    };
+                                }
+                                user.save(function (err) {
+                                    console.log(err, user);
+                                });
+                            });
 
                         });
                     });
                 });
-            });
-        });
+            } else {
+                // Case 2: the user is not on a route, use the text to trigger one
+            }
+        }
     });
 });
 
-SmsService.init(function() {
+function collectReplyMessages(reply, callback) {
+    var messages = [];
+    async.whilst(
+        function () {
+            [].push.apply(messages, reply.text.split('\n'));
+            return (reply.positive_always_branch != '' && reply.negative_branch == '');
+        },
+        function (callback) {
+            reply.getAlwaysBranch(function (err, branch) {
+                reply = branch;
+                callback();
+            });
+        },
+        function (err) {
+            callback(err, reply, messages);
+        }
+    );
+}
+
+SmsService.init(function () {
     console.log('app.js', 'SmsService init');
 });
 

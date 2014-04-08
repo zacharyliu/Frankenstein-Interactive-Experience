@@ -16,7 +16,7 @@ SmsService.prototype.sms = function (to, text, callback) {
     if (this.client) {
         console.log('SmsService sending message "' + text + '" to ' + to);
         this.client.sms({to: to, text: text}, function(err, res, data) {
-            callback(null, data);
+            if (callback) callback(null, data);
         });
     } else {
         callback('SMS client not yet initialized');

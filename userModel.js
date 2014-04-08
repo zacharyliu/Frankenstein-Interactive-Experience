@@ -14,7 +14,8 @@ var userSchema = new mongoose.Schema({
         date: Date,
         outgoing: Boolean,
         text: String
-    }]
+    }],
+    activationKey: String
 });
 
 userSchema.statics.findOrCreate = function (identifier, profile, callback) {
@@ -31,7 +32,8 @@ userSchema.statics.findOrCreate = function (identifier, profile, callback) {
             var user = new that({
                 profileId: identifier,
                 displayName: profile.displayName,
-                email: profile.emails[0].value
+                email: profile.emails[0].value,
+                activationKey: Math.random() * 899999 + 100000
             });
             user.save(function (err, user) {
                 if (err && callback) return callback(err);
