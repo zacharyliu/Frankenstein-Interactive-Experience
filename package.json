@@ -17,5 +17,8 @@
     "passport-google": "~0.3.0",
     "csv": "~0.3.7",
     "async": "~0.7.0"
+  },
+  "scripts": {
+    "postinstall": "./node_modules/bower/bin/bower install"
   }
 }
