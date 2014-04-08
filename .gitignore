@@ -28,8 +28,5 @@ node_modules
 /.idea
 /*.iml
 
-# Bower
-/public/lib
-
 # Config files
 /config.json
