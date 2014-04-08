@@ -104,17 +104,34 @@ SmsService.on('message', function (message) {
                                 // Update user state
                                 if (finalReply.positive_always_branch == '') {
                                     console.log('User completed route with id', finalReply.route_id);
-                                    user.current = null;
                                     user.completedRoutes.push(finalReply.route_id);
+                                    // Try to get the next route
+                                    finalReply.getNext(function(err, nextReply) {
+                                        if (!err && nextReply) {
+                                            user.current = {
+                                                route_id: nextReply.route_id,
+                                                tag: nextReply.tag
+                                            };
+                                            // Start the next route
+                                            SmsService.sms(number, nextReply.text, function(err) {
+
+                                            });
+                                        }
+                                        // Save user data
+                                        user.save(function (err) {
+
+                                        });
+                                    })
                                 } else {
                                     user.current = {
                                         route_id: finalReply.route_id,
                                         tag: finalReply.tag
                                     };
+                                    user.save(function (err) {
+                                        console.log(err, user);
+                                    });
                                 }
-                                user.save(function (err) {
-                                    console.log(err, user);
-                                });
+
                             });
 
                         });

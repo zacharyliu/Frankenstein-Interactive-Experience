@@ -22,6 +22,12 @@ replySchema.methods.getBranchByScore = function (score, callback) {
     });
 };
 
+replySchema.methods.getNext = function(callback) {
+    this.model('reply').findOne({_id: {$gt: this._id}}, function(err, result) {
+        callback(err, result);
+    });
+};
+
 var csv = require('csv');
 replySchema.statics.importCsv = function(filename) {
     var that = this;
