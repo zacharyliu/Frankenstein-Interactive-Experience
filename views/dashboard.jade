@@ -1,0 +1,150 @@
+extends layout
+
+block content
+    .container
+        .row
+            .col-md-12
+                .panel
+                    .panel-body
+                        .row
+                            .col-md-12.text-center
+                                if (isLoggedIn && !user.number)
+                                    h3 Activation
+                                    hr
+                                    | You must activate a mobile number to get started.
+                                    br
+                                    | Please text the code
+                                    h4= user.activationKey
+                                    | to the number
+                                    h4= masterNumber
+                                else if (isLoggedIn)
+                                    h3= user.number
+                                    | You have completed the following routes:
+                                    ul
+                                        each route in user.completedRoutes
+                                            li= route
+                                else
+                                    h3 Login
+                                    | Please login to continue.
+
+    //.container
+    //    .row
+    //        .col-md-12
+    //            .panel
+    //                .panel-body
+    //                    .row
+    //                        br
+    //                        .col-md-2.col-sm-3.text-center
+    //                            a.story-title(href='http://www.techvisually.com/p/2LmGb0yEsL')
+    //                                img.img-circle(alt='Repurpose Content to Reach a Wider Audience', src='http://site2img-api.herokuapp.com/1078600787', style='width: 100px; height: 100px;')
+    //                        .col-md-10.col-sm-9
+    //                            h3 Repurpose Content to Reach a Wider Audience
+    //                            .row
+    //                                .col-xs-9
+    //                                    h4
+    //                                        span.label.label-default 97thfloor.com
+    //                                    h4
+    //                                        small.text-muted(style='font-family: courier,\'new courier\';')
+    //                                            | 2 hours ago  •
+    //                                            a.text-muted(href='#') Read More
+    //                                .col-xs-3
+    //                            br
+    //                            br
+    //                    hr
+    //                    .row
+    //                        br
+    //                        .col-md-2.col-sm-3.text-center
+    //                            a.story-title(href='http://www.techvisually.com/p/M9aZMr7qXc')
+    //                                img.img-circle(alt='14 Useful Sites for Designers', src='http://site2img-api.herokuapp.com/1078600777', style='width: 100px; height: 100px;')
+    //                        .col-md-10.col-sm-9
+    //                            h3 14 Useful Sites for Designers
+    //                            .row
+    //                                .col-xs-9
+    //                                    h4
+    //                                        span.label.label-default devgarage.com
+    //                                    h4
+    //                                        small.text-muted(style='font-family: courier,\'new courier\';')
+    //                                            | Yesterday •
+    //                                            a.text-muted(href='#') Read More
+    //                                .col-xs-3
+    //                            br
+    //                            br
+    //                    hr
+    //                    .row
+    //                        br
+    //                        .col-md-2.col-sm-3.text-center
+    //                            a.story-title(href='http://www.techvisually.com/p/AjwaicZ90d')
+    //                                img.img-circle(alt='Measuring Your Link Building with Google Analytics', src='http://site2img-api.herokuapp.com/1078043535', style='width: 100px; height: 100px;')
+    //                        .col-md-10.col-sm-9
+    //                            h3 Measuring Your Link Building with Google Analytics
+    //                            .row
+    //                                .col-xs-9
+    //                                    h4
+    //                                        span.label.label-default searchenginewatch.com
+    //                                    h4
+    //                                        small.text-muted(style='font-family: courier,\'new courier\';')
+    //                                            | Yesterday •
+    //                                            a.text-muted(href='#') Read More
+    //                                .col-xs-3
+    //                            br
+    //                            br
+    //                    hr
+    //                    .row
+    //                        br
+    //                        .col-md-2.col-sm-3.text-center
+    //                            a.story-title(href='http://www.techvisually.com/p/PbhBwE6bwE')
+    //                                img.img-circle(alt='Dramatically Raise the Value of Any Piece of Content with These 27 Tactics', src='http://site2img-api.herokuapp.com/1077116470', style='width: 100px; height: 100px;')
+    //                        .col-md-10.col-sm-9
+    //                            h3 Dramatically Raise the Value of Any Piece of Content with These 27 Tactics
+    //                            .row
+    //                                .col-xs-9
+    //                                    h4
+    //                                        span.label.label-default searchenginewatch.com
+    //                                    h4
+    //                                        small.text-muted(style='font-family: courier,\'new courier\';')
+    //                                            | 2 days ago •
+    //                                            a.text-muted(href='#') Read More
+    //                                .col-xs-3
+    //                            br
+    //                            br
+    //                    hr
+    //                    .row
+    //                        br
+    //                        .col-md-2.col-sm-3.text-center
+    //                            a.story-title(href='http://www.techvisually.com/p/j15CXz21w4')
+    //                                img.img-circle(alt='TrendPaper  Whats Trending in the World', src='http://site2img-api.herokuapp.com/1077109731', style='width: 100px; height: 100px;')
+    //                        .col-md-10.col-sm-9
+    //                            h3 TrendPaper Whats Trending in the World
+    //                            .row
+    //                                .col-xs-9
+    //                                    h4
+    //                                        span.label.label-default betali.st
+    //                                    h4
+    //                                        small.text-muted(style='font-family: courier,\'new courier\';')
+    //                                            | Last week •
+    //                                            a.text-muted(href='#') Read More
+    //                                .col-xs-3
+    //                            br
+    //                            br
+    //                    hr
+    //                    a.btn.btn-primary.pull-right.btnNext(href='/')
+    //                        | More
+    //                        i.glyphicon.glyphicon-chevron-right
+    hr
+    footer
+        .container
+            .row
+                .col-sm-6
+                    ul.list-inline
+                        li
+                            i.icon-facebook.icon-2x
+                        li
+                            i.icon-twitter.icon-2x
+                        li
+                            i.icon-google-plus.icon-2x
+                        li
+                            i.icon-pinterest.icon-2x
+                .col-sm-6
+                    p.pull-right
+                        | Built by Zachary Liu
+                        | @zacharyliu

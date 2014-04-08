@@ -1,8 +1,11 @@
+var config = require('../config');
 
-/*
- * GET home page.
- */
-
-exports.index = function(req, res){
-  res.render('index', { title: 'Express' });
+exports.index = function (req, res) {
+    console.log(req.user);
+    res.render('dashboard', {
+        title: 'Express',
+        isLoggedIn: !!req.user,
+        user: req.user,
+        masterNumber: config.NUMBER
+    });
 };

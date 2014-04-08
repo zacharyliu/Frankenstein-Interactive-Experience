@@ -33,7 +33,7 @@ userSchema.statics.findOrCreate = function (identifier, profile, callback) {
                 profileId: identifier,
                 displayName: profile.displayName,
                 email: profile.emails[0].value,
-                activationKey: Math.random() * 899999 + 100000
+                activationKey: Math.floor(Math.random() * 899999) + 100000
             });
             user.save(function (err, user) {
                 if (err && callback) return callback(err);

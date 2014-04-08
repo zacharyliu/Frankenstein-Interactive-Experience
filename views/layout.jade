@@ -6,6 +6,32 @@ html
         link(rel='stylesheet', href='/css/style.css')
 
     body
+        header.navbar.navbar-bright.navbar-fixed-top(role='banner')
+            .container
+                ul.nav.navbar-nav
+                    li
+                        a.navbar-brand(href='/dashboard') Dashboard
+                    li
+                        a(href='/auth/login') Login
+                    li
+                        a(href='/auth/logout') Logout
+                if isLoggedIn
+                    .pull-right
+                        ul.nav.navbar-nav
+                            li
+                                a(href='#') Hello, #{user.displayName}
+
+        #masthead
+            .container
+                .row
+                    .col-md-7
+                        h1 Frankenstein
+                        h2 the interactive experience
+            .container
+                .row
+                    .col-md-12
+                        .top-spacer
+
         block content
 
         script(src='/lib/jquery/dist/jquery.js')

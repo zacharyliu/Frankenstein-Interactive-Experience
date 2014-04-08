@@ -59,14 +59,28 @@ SmsService.on('message', function (message) {
     var text = message.message_text;
     console.log('Incoming message from ', number, text);
     UserModel.findOne({number: number}, function (err, user) {
-        if (err) {
+        if (err || !user) {
             // No user found, try to activate a new user
             UserModel.findOne({activationKey: text}, function (err, user) {
                 if (!err) {
                     // Successful, activate
                     user.number = number;
                     user.save(function (err) {
-                        SmsService.sms(number, 'Successfully activated you as user ' + user.email + '. Text again to begin.');
+                        SmsService.sms(number, 'Successfully activated you as user ' + user.email + '. The experience begins now...');
+
+                        console.log('Starting experience');
+                        var starting = {
+                            route_id: 'introduction',
+                            tag: 'a'
+                        };
+                        ReplyModel.findOne(starting, function(err, reply) {
+                            user.current = starting;
+                            user.save(function(err) {
+                                SmsService.sms(number, reply.text, function(err) {
+
+                                });
+                            });
+                        });
                     });
                 } else {
                     // Unsuccessful, send error
@@ -108,7 +122,7 @@ SmsService.on('message', function (message) {
                     });
                 });
             } else {
-                // Case 2: the user is not on a route, use the text to trigger one
+
             }
         }
     });
