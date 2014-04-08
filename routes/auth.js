@@ -7,7 +7,7 @@ passport.use(new GoogleStrategy({
 //    clientID: config.GOOGLE_CLIENTID,
 //    clientSecret: config.GOOGLE_CLIENTSECRET,
     returnURL: (process.env.NODE_ENV == 'production') ? 'http://frankenstein-interactive.herokuapp.com/auth/callback' : 'http://localhost:3000/auth/callback',
-    realm: 'http://localhost:3000/'
+    realm: (process.env.NODE_ENV == 'production') ? 'http://frankenstein-interactive.herokuapp.com/' : 'http://localhost:3000/'
 }, function(identifier, profile, done) {
     User.findOrCreate(identifier, profile, function(err, user) {
         console.log(user);
