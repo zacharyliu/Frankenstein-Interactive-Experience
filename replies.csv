@@ -1,0 +1,83 @@
+route_id,tag,text,positive_always_branch,negative_branch
+introduction,a,I am worried about your illness. Are you feeling any better?,b,d
+introduction,b,"That is wonderful to hear.
+I'm so glad that you are well.",c,
+introduction,d,"Please, I beg you to rest until you feel better.",c,
+introduction,c,"Clerval wrote to me earlier that you are getting better.
+It worries me so much to hear you ill.
+Will you text me when you are well?",g,h
+introduction,h,:( please? I'm so worried.,g,h
+introduction,g,":) It would make my day to hear that you are better.
+I persuaded my uncle not to travel to Ingolstadt.
+But I wish I could be there myself to see that you are well.
+Have you heard from your father recently?",k,j
+introduction,j,"You should text him soon about your recovery.
+He's been telling me how he's been in great health.",l,
+introduction,k,"I know you've heard how he's been in such great health. 
+I'm so glad.",l,
+introduction,l,"Get well soon, and return home to your family. 
+Will you visit home soon?",m,n
+introduction,m,Great! See you at home soon!,o,
+introduction,n,"Well, do make plans when you can.",o,
+introduction,o,"Your father wishes to see you, he will be so glad.",,
+ernest,begin,"Oh, our Ernest is doing so well!
+He's so energetic and always full of spirit.
+Have you heard how old he is?",age_yes,age_no
+ernest,age_no,Why he's just turned 16!,military,
+ernest,age_yes,"I see you have been keeping track. He is indeed 16.
+And you keep saying you never remember anyone's birthday.",military,
+ernest,military,"Now he wants to be like a true Swiss.
+He wants to join the military.
+I think it's a good idea, do you?",military_yes,military_no
+ernest,military_yes,Me too! Though my uncle disagrees...,military_uncle,
+ernest,military_no,"Well, I still think it's a good idea. 
+But my uncle agrees with you.",military_uncle,
+ernest,military_uncle,"He is extremely upset. Oh, the poor boy.. 
+I fear that our Ernest will become an idler if he does not join.
+He spends all his time outside.
+Will you help me convince his uncle?",convince_yes,convince_no
+ernest,convince_yes,"Oh, I knew you would! I'll talk to him right at once.",end,
+ernest,convince_no,"Well, even if you disagree. I'll still do my best.
+I think it's what's best for the child.",end,
+ernest,end,I'll let you know what my uncle thinks.,,
+home,begin,"Not much has changed at home since you left, you know. Do you get out of the house much these days?",seen_yes,seen_no
+home,seen_yes,I've been trying to leisure around outside myself too.,beautiful,
+home,seen_no,"Oh, you should try - I've been trying to myself.",beautiful,
+home,beautiful,"My, is it beautiful - the blue lake and the snow-clad mountains.
+And all this time filling my time with trifiling occupations!",,
+justine_moritz,begin,Have you heard of Justine Moritz?,next,next
+justine_moritz,next,"Well, her mother Madame Moritz was a widow with 4 children. 
+Justine was the third.
+Always her father's favorite.
+But didn't get along with her mother.
+After her father died, my aunt took her in.
+You remember, right?",rememberyes,rememberno
+justine_moritz,rememberyes,Of course. She lived with us so long.,out,
+justine_moritz,rememberno,"Oh, your memory must be so lost.
+All that time in the lab. ",rememberyes,
+justine_moritz,out,"She was your favorite, too!
+Always looking happy. She got along well.
+She went back to her old home recently, but came back to us.
+She's most happy here.
+Doesn't she remind you of my aunt?",yes,no
+justine_moritz,yes,"I think so, too.",no,
+justine_moritz,no,She really does.,,
+william,begin,"And you remember little William, don't you?",remember,remember
+william,remember,"I shouldn't call him little anymore, he's grown so tall :)
+and such sweet blue eyes and curly hair!
+And he's even got several ""wives"" of his own!",,
+gossip,begin,"Speaking of marraige, Miss Mansfield is getting married.
+A young Englishman.
+John Melbourne
+You know her ugly sister Manon married that rich banker.
+Do you still keep in touch with Louis Manoir?",yes,no
+gossip,yes,"Perhaps you've heard of all his misfortunes.
+But he'll be marriyng pretty old Madame Tavernier.
+Everyone admires her.",,
+gossip,no,You should hear him out sometime.,yes,
+conclusion,begin,But enough talk about the town! Promise me you'll be better?,yes,no
+conclusion,yes,I promise you I'll be well too.,next,
+conclusion,no,Please feel better!,next,
+conclusion,next,"And send my regards to Henry for his help, won't you?",closing,closing
+conclusion,closing,"Adieu! My cousin, take care of yourself!
+And, I entreat you, text me often!!",,
