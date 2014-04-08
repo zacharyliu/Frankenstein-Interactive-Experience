@@ -9,6 +9,8 @@ var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
 
+var SmsService = require('./smsService');
+
 var app = express();
 
 // all environments
@@ -34,4 +36,12 @@ app.get('/users', user.list);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
+});
+
+SmsService.on('message', function(message) {
+    console.log(message);
+});
+
+SmsService.init(function() {
+    console.log('app.js', 'SmsService init');
 });

@@ -30,3 +30,6 @@ node_modules
 
 # Bower
 /public/lib
+
+# Config files
+/config.js
