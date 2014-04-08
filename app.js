@@ -38,11 +38,13 @@ http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
 
+var sentiment = require('sentiment');
 SmsService.on('message', function(message) {
     console.log(message);
-    // send a reply
-    SmsService.sms(message.phone_number, 'You said ' + message.message_text, function(err) {
+    sentiment(message.message_text, function(err, result) {
+        SmsService.sms(message.phone_number, 'Score: ' + result.score, function(err) {
 
+        });
     });
 });
 
