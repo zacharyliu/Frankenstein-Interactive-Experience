@@ -43,7 +43,6 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
-app.get('/dashboard', routes.index);
 app.get('/auth/login', auth.login);
 app.get('/auth/callback', auth.loginCallback);
 

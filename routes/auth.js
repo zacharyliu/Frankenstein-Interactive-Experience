@@ -28,7 +28,7 @@ passport.deserializeUser(function(profileId, done) {
 exports.login = passport.authenticate('google', {scope: "email"});
 
 exports.loginCallback = passport.authenticate('google', {
-    successRedirect: '/dashboard',
+    successRedirect: '/',
     failureRedirect: '/'
 });
 
