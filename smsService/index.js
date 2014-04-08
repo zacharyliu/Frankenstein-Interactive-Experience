@@ -12,8 +12,9 @@ var SmsService = function () {
 
 util.inherits(SmsService, events.EventEmitter);
 
-SmsService.prototype.sms = function (to, text) {
+SmsService.prototype.sms = function (to, text, callback) {
     if (this.client) {
+        console.log('SmsService sending message "' + text + '" to ' + to);
         this.client.sms({to: to, text: text}, function(err, res, data) {
             callback(null, data);
         });
@@ -66,8 +67,7 @@ SmsService.prototype.init = function (callback) {
             return console.log('.auth error: ', err);
         }
 
-        console.log('\nNew auth token:');
-        console.log(token);
+        console.log('New auth token:', token);
     });
 
     // Get an rnr token
@@ -77,8 +77,7 @@ SmsService.prototype.init = function (callback) {
             return console.log('.rnr error: ', err);
         }
 
-        console.log('\nNew rnr token:');
-        console.log(token);
+        console.log('New rnr token:', token);
     });
 
     // Get a gvx token
@@ -88,8 +87,7 @@ SmsService.prototype.init = function (callback) {
             return console.log('.gvx error: ', err);
         }
 
-        console.log('\nNew gvx token:');
-        console.log(token);
+        console.log('New gvx token:', token);
     });
 };
 

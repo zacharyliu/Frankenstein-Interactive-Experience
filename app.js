@@ -40,6 +40,10 @@ http.createServer(app).listen(app.get('port'), function(){
 
 SmsService.on('message', function(message) {
     console.log(message);
+    // send a reply
+    SmsService.sms(message.phone_number, 'You said ' + message.message_text, function(err) {
+
+    });
 });
 
 SmsService.init(function() {
